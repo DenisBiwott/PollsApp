@@ -9,15 +9,15 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-#import sentry_sdk
+import sentry_sdk
 import os
-#from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.django import DjangoIntegration
 
 
-#sentry_sdk.init(
-#    dsn="https://0ccb4aa6f7fb42b596eab1c8c6b690ba@sentry.io/1501881",
-#    integrations=[DjangoIntegration()]
-#)
+sentry_sdk.init(
+    dsn="https://0ccb4aa6f7fb42b596eab1c8c6b690ba@sentry.io/1501881",
+    integrations=[DjangoIntegration()]
+)
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
