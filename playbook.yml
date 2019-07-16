@@ -1,0 +1,15 @@
+---
+
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: Install system packages
+    apt: 
+      name: '{{ item }}'
+      state: installed
+    with_items:
+      - python-software-properties
+
+  - name: Update pip
+    pip: name=pip state=present
+
