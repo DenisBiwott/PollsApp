@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'pollsapp_db',
         'USER': 'pollsapp',
         'PASSWORD': 'Denis1998',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': ''
     }
 }
