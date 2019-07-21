@@ -1,0 +1,17 @@
+server {
+
+    listen [::]:80 default_server;
+    listen 80 default_server;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /static/ {
+            root /srv/PollsApp;
+    }
+
+    location / {
+            include proxy_params;
+            proxy_pass http://unix:/srv/PollsApp/mysite.sock;
+    }
+}
+
