@@ -14,11 +14,11 @@ jobs: # A basic unit of work in a run
         environment: # environment variables for the Postgres container.
           POSTGRES_USER: pollsapp
           POSTGRES_DB: pollsapp_db
+    ssh_known_hosts: 
+      - 54.152.95.241
+          
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:wxnQd/LoW+ARq0W8ToXefXMOBG2QIw3s8SQ4u/hn2KA"
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
