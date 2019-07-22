@@ -40,7 +40,7 @@ jobs:
           name: Coverage
           command: |
             pipenv run python manage.py test
-            coverage run manage.py
+            coverage run manage.py test
             coverage report --fail-under=90
 
       
