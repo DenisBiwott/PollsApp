@@ -38,6 +38,14 @@ jobs: # A basic unit of work in a run
             pipenv run python manage.py test
             coverage run --source='.' manage.py test
             coverage report
+
+      
+      - run:
+          name: Run Playbook
+          command: |
+            ansible-playbook deploy.yml -i hosts
+
+
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
