@@ -7,25 +7,38 @@
 
   tasks:
     - name: Clone/pull project repo
-      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes
+      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
       notify:
       - restart gunicorn
 
-    - name: install python packages
-      pip: requirements={{ install_root }}/{{ project_name }}/requirements.txt
-      notify:
-      - restart gunicorn
 
     - name: copy nginx config
-      template: src=files/nginx.j2 dest=/etc/nginx/sites-enabled/{{ project_name }}.conf
-      notify:
-      - restart nginx
+      copy:
+        src: /srv/PollsApp/files/mysite
+        dest: /etc/nginx/sites-available/
+        remote_src: yes
+
+
+    - name: Create symbolic link
+      file:
+        src: /etc/nginx/sites-available/mysite
+        dest: /etc/nginx/sites-enabled/mysite
+        state: link
+
 
     - name: django migrate
-      django_manage: command=migrate app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }}
+      django_manage:
+        command: migrate
+        app_path: "{{ install_root }}/{{ project_name }}"
+        pythonpath: "{{ pythonpath }}"
+
 
     - name: django collectstatic
-      django_manage: command=collectstatic app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }}
+      django_manage:
+        command: collectstatic
+        app_path: "{{ install_root }}/{{ project_name }}"
+        pythonpath: "{{ pythonpath }}"
+
 
     - name: copy gunicorn config
       template: src=files/gunicorn.j2 dest=/etc/init/gunicorn.conf
