@@ -3,7 +3,7 @@
 {% block content %}
 
 <h4>{{ question.question_text }}</h4>
-
+<p>Click on choice and submit query - There is no indication on selected choice<p/>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
