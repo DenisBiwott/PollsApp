@@ -1,7 +1,7 @@
 import os
 from setuptools import find_packages, setup
 
-with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
 
@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     license='MIT License',
     description='A simple Polling app.',
-    long_description=README.md,
+    long_description=README,
     url='https://github.com/DenisBiwott/PollsApp',
     author='Denis Kipkoech',
     author_email='deniskipkoech@gmail.com',
