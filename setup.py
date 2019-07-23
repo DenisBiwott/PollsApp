@@ -1,34 +1,59 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
-from setuptools import find_packages, setup
+import sys
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
-    README = readme.read()
+from setuptools import setup
+from setuptools.command.install import install
+
+VERSION = "1.1.1"
+
+def readme():
+    with open('README.md') as f:
+        return f.read()
 
 
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+class VerifyVersionCommand(install):
+    description =
+
+    def run(self):
+        tag = os.getenv('CIRCLE_TAG')
+
+        if tag != VERSION:
+            info = "Git tag: {0} does not match the version of this app: {1}".format(
+                tag, VERSION
+            )
+            sys.exit(info)
 
 setup(
-    name='kikkoech-polling',
-    version='0.0.1',
-    packages=find_packages(),
-    include_package_data=True,
-    license='MIT License',
-    description='A simple Polling app.',
-    long_description=README,
-    url='https://github.com/DenisBiwott/PollsApp',
-    author='Denis Kipkoech',
-    author_email='deniskipkoech@gmail.com',
+    name="Kipkoech-polls",
+    version=VERSION,
+    description="Simple Django Polls app",
+    long_description=readme(),
+    url="https://github.com/DenisBiwott/PollsApp",
+    author="Denis Kipkoech",
+    author_email="deniskipkoech@gmail.com",
+    license="MIT",
     classifiers=[
-        'Environment :: Web Environment',
-        'Framework :: Django',
-        'Framework :: Django :: 2.2.2',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "Intended Audience :: System Administrators",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Topic :: Software Development :: Build Tools",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Internet",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3 :: Only",
     ],
+    keywords='circleci ci cd api sdk',
+    packages=['circleci'],
+    install_requires=[
+        'requests==2.18.4',
+    ],
+    python_requires='>=3',
+    cmdclass={
+        'verify': VerifyVersionCommand,
+    }
 )
