@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     license='MIT License',
     description='A simple Polling app.',
-    long_description=README,
+    long_description=README.md,
     url='https://github.com/DenisBiwott/PollsApp',
     author='Denis Kipkoech',
     author_email='deniskipkoech@gmail.com',
