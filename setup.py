@@ -8,13 +8,14 @@ from setuptools.command.install import install
 
 VERSION = "1.1.1"
 
+
 def readme():
     with open('README.md') as f:
         return f.read()
 
 
 class VerifyVersionCommand(install):
-    description =
+    description = "Simple Django PollsApp"
 
     def run(self):
         tag = os.getenv('CIRCLE_TAG')
@@ -24,6 +25,7 @@ class VerifyVersionCommand(install):
                 tag, VERSION
             )
             sys.exit(info)
+
 
 setup(
     name="Kipkoech-polls",
