@@ -1,0 +1,67 @@
+---
+- hosts: servers
+  vars_files:
+    - vars.yml
+  gather_facts: false
+  become: yes
+
+  tasks:
+    - name: Clone/pull project repo
+      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
+      notify:
+      - restart gunicorn
+
+
+    - name: copy nginx config
+      copy:
+        src: /srv/PollsApp/files/mysite
+        dest: /etc/nginx/sites-available/
+        remote_src: yes
+
+
+    - name: Create symbolic link
+      file:
+        src: /etc/nginx/sites-available/mysite
+        dest: /etc/nginx/sites-enabled/mysite
+        state: link
+
+
+    - name: django migrate
+      django_manage:
+        command: migrate
+        app_path: "{{ install_root }}/{{ project_name }}"
+        pythonpath: "{{ pythonpath }}"
+
+
+    - name: django collectstatic
+      django_manage:
+        command: collectstatic
+        app_path: "{{ install_root }}/{{ project_name }}"
+        pythonpath: "{{ pythonpath }}"
+
+
+    - name: make sure nginx server is running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: make sure gunicorn server is running
+      service:
+        name: gunicorn
+        state: started
+        enabled: yes
+
+  handlers: 
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: restart gunicorn
+      service:
+        name: gunicorn
+        state: restarted
+# vim:ft=ansible:
+
+
