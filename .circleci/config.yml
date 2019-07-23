@@ -50,6 +50,35 @@ jobs:
             #           ansible-playbook deploy.yml -i hosts
 
 
+      - run:
+          name: verify git tag vs. version
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            python setup.py verify
+
+
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = deniskipkoech" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+      
+
+      - run:
+          name: create packages
+          command: |
+            python3 setup.py sdist
+
+
+      - run:
+          name: upload to pypi
+          command: |
+            . venv/bin/activate
+            twine upload dist/*       
+
+
       - store_test_results:
           path: test-results
       - store_artifacts:
