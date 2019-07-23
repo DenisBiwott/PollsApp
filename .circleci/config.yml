@@ -26,6 +26,7 @@ jobs:
       - run:
           name: Installing Requirements
           command: |
+            pip install --upgrade pip  
             sudo pip install pipenv
             pipenv install
             sudo pip3 install -r requirements.txt
