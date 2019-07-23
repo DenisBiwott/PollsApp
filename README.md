@@ -1,4 +1,4 @@
-KIPKOECH POLLS APP
+#KIPKOECH POLLS APP
 
 This is a simple Django polls app. It takes users inputs based on given choices and stores them in a Postgresql database. The results of the polls are then shown to the user.
 
