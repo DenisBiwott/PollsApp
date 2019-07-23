@@ -6,6 +6,7 @@ omit =
     den*
     settings.py
     fabfile.py
+    setup.py
 [run]
 source=.
 branch=True
