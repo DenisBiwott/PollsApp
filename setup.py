@@ -17,15 +17,6 @@ def readme():
 class VerifyVersionCommand(install):
     description = "Simple Django PollsApp"
 
-    def run(self):
-        tag = os.getenv('CIRCLE_TAG')
-
-        if tag != VERSION:
-            info = "Git tag: {0} does not match the version of this app: {1}".format(
-                tag, VERSION
-            )
-            sys.exit(info)
-
 
 setup(
     name="Kipkoech-polls",
