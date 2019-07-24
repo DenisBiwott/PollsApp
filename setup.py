@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
 
 from setuptools import setup
 from setuptools.command.install import install
@@ -46,7 +44,4 @@ setup(
         'requests==2.18.4',
     ],
     python_requires='>=3',
-    cmdclass={
-        'verify': VerifyVersionCommand,
-    }
 )
