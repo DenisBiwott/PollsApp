@@ -41,7 +41,6 @@ jobs:
       - run:
           name: Coverage
           command: |
-            pipenv run python manage.py test
             coverage run manage.py test
             coverage report --fail-under=90
 
@@ -51,13 +50,6 @@ jobs:
             #          command: |
             #           ansible-playbook deploy.yml -i hosts
 
-
-      - run:
-          name: verify git tag vs. version
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            python setup.py verify
 
 
       - run:
