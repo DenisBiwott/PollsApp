@@ -63,8 +63,6 @@ jobs:
       - run:
           name: upload to pypi
           command: |
-            . venv/local/bin/activate
-            pip3 install twine
             twine upload dist/*       
 
       - store_test_results:
