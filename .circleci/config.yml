@@ -15,7 +15,6 @@ jobs:
           POSTGRES_USER: pollsapp
           POSTGRES_DB: pollsapp_db
 
-
     steps:
       
       - checkout
@@ -23,13 +22,12 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
           key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
+
       - run:
           name: Installing Requirements
           command: |
-            pip install --upgrade pip  
-            sudo pip install pipenv
-            pipenv install
-            python3 -m pip install --user --upgrade twine
+            python3 -m venv venv
+            . venv/bin/activate
             sudo pip3 install -r requirements.txt
       
       - save_cache:
@@ -38,19 +36,17 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.6/site-packages"
+
       - run:
           name: Coverage
           command: |
             coverage run manage.py test
             coverage report --fail-under=90
-
       
             #      - run:
             #          name: Run Playbook
             #          command: |
             #           ansible-playbook deploy.yml -i hosts
-
-
 
       - run:
           name: init .pypirc
@@ -59,12 +55,10 @@ jobs:
             echo -e "username = deniskipkoech" >> ~/.pypirc
             echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
       
-
       - run:
           name: create packages
           command: |
-            python3 setup.py sdist
-
+            python3 setup.py sdist bdist_wheel
 
       - run:
           name: upload to pypi
@@ -72,7 +66,6 @@ jobs:
             . venv/local/bin/activate
             pip3 install twine
             twine upload dist/*       
-
 
       - store_test_results:
           path: test-results
