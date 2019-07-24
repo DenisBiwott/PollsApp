@@ -10,3 +10,4 @@ model-mommy==1.6.0
 six==1.12.0
 sentry-sdk==0.10.1
 ansible==2.8.2
+twine==1.13.0
