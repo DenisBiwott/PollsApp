@@ -38,8 +38,8 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    keywords='circleci ci cd api sdk',
-    packages=['circleci'],
+    keywords='',
+    packages=['PollsApp'],
     install_requires=[
         'requests==2.18.4',
     ],
