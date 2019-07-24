@@ -39,7 +39,7 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
     ],
     keywords='',
-    packages=['PollPackage'],
+    packages=['.'],
     install_requires=[
         'requests==2.20.0',
     ],
