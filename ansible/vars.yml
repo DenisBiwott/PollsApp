@@ -12,9 +12,6 @@ project_repo: https://github.com/DenisBiwott/PollsApp.git
 
 ssh_private_key: ~/.ssh/id_rsa
 
-static_root: "{{ install_root }}/{{ PollsApp }}/static"
-
-
 db_name: pollsapp_db
 
 db_user: pollsapp

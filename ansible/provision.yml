@@ -8,7 +8,6 @@
   tasks:
     - name: Install system packages
       apt: pkg={{ system_packages }} update-cache=yes # Removed Loop
-      
 
     - name: Save ssh key to server
       copy: src={{ ssh_private_key }} dest=/root/.ssh/id_rsa mode=600
