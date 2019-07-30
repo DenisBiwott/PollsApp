@@ -2,7 +2,7 @@ server {
 
     listen [::]:80 default_server;
     listen 80 default_server;
-    server_name kipkoech.tk www.kipkoech.tk;
+    server_name kipkoech.cf www.kipkoech.cf;
 
     location = /favicon.ico { access_log off; log_not_found off; }
 

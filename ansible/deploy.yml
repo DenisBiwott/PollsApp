@@ -8,8 +8,11 @@
   tasks:
     - name: Clone/pull project repo
       git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
-      notify:
-      - restart gunicorn
+
+
+    - name: Install project requirements
+      pip:
+        requirements: /srv/PollsApp/requirements.txt
 
 
     - name: copy nginx config
@@ -33,11 +36,9 @@
         enabled: yes
     
     
-#    - name: Make migrations
-#      django_manage:
-#        command: migrate
-#        app_path: "{{ install_root }}/{{ project_name }}"
-#        pythonpath: "{{ pythonpath }}"
+    - name: Make migrations
+      shell:
+        python3 /srv/PollsApp/manage.py migrate
 
 
     - name: start gunicorn
@@ -47,7 +48,6 @@
         chdir: /srv/PollsApp
 
 
-  handlers: 
     - name: restart nginx
       service:
         name: nginx
