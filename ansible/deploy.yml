@@ -53,6 +53,7 @@
         name: nginx
         state: restarted
 
+- import_playbook: encrypt.yml
 # vim:ft=ansible:
 
 

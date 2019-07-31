@@ -18,6 +18,14 @@ db_user: pollsapp
 
 db_password: Denis1998
 
+certbot: python-certbot-nginx
+
+domain_1: kipkoech.cf
+
+domain_2: www.kipkoech.cf
+
+certbot_admin_email: deniskipkoechbiwott@gmail.com
+
 
 system_packages:
   - git
