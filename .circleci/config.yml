@@ -9,14 +9,22 @@ jobs:
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          ANSIBLE_HOST_KEY_CHECKING: no
       
       - image: circleci/postgres:9.6.2
         environment:
           POSTGRES_USER: pollsapp
           POSTGRES_DB: pollsapp_db
 
+    branches:
+      only:
+        - master
+
     steps:
-      
+      - add_ssh_keys:
+          fingerprints:
+              - "2a:6f:9a:73:ac:82:ae:19:5a:2c:9e:0d:9b:70:32:c8"
+
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
@@ -43,10 +51,11 @@ jobs:
             coverage run manage.py test
             coverage report --fail-under=90
       
-            #      - run:
-            #          name: Run Playbook
-            #          command: |
-            #           ansible-playbook deploy.yml -i hosts
+      - run:
+          name: Run Playbook
+          command: |
+           cd ansible
+           ansible-playbook continuous_dev.yml -i hosts
 
       - run:
           name: init .pypirc
@@ -67,6 +76,7 @@ jobs:
 
       - store_test_results:
           path: test-results
+
       - store_artifacts:
           path: test-results
           destination: tr1

@@ -1,0 +1,31 @@
+---
+- hosts: servers
+  vars_files:
+    - vars.yml
+  gather_facts: false
+  become: True
+
+  tasks:
+    - name: Pull project repo
+      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
+
+    - name: Install project requirements
+      pip:
+        requirements: /srv/PollsApp/requirements.txt
+
+    - name: Create symbolic link
+      file:
+        src: /etc/nginx/sites-available/mysite
+        dest: /etc/nginx/sites-enabled/mysite
+        state: link
+
+    - name: Make migrations
+      shell:
+        python3 /srv/PollsApp/manage.py migrate
+
+    - name: start gunicorn
+      become: True
+      command: gunicorn --daemon --workers 3 --bind unix:/srv/PollsApp/mysite.sock mysite.wsgi
+      args:
+        chdir: /srv/PollsApp
+

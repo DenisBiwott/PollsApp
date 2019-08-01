@@ -4,7 +4,7 @@
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.0.9"
+VERSION = "0.1.2"
 
 
 def readme():
@@ -39,7 +39,7 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
     ],
     keywords='',
-    packages=['.'],
+    packages=[''],
     install_requires=[
         'requests==2.20.0',
     ],

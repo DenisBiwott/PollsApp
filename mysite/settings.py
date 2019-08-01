@@ -105,6 +105,19 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Caching
+
+#CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#        'LOCATION': '127.0.0.1:11211',
+#        'TIMEOUT': 100,
+#        'OPTIONS': {
+#            'MAX_ENTRIES': 1100
+#        }
+#    }
+#}
+
 # Internationalization
 
 LANGUAGE_CODE = 'en-us'
