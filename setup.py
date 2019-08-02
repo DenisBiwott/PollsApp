@@ -41,7 +41,7 @@ setup(
     keywords='',
     packages=[''],
     install_requires=[
-        'requests==2.20.0',
+        'requests==2.22.0',
     ],
     python_requires='>=3',
 )
