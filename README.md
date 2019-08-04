@@ -6,11 +6,6 @@ This is a simple Django polls app. It takes users inputs based on given choices 
 [![CircleCI](https://circleci.com/gh/DenisBiwott/PollsApp/tree/master.svg?style=svg)](https://circleci.com/gh/DenisBiwott/PollsApp/tree/master)
 
 
-Continuous deployment
----------------------
-- [![CircleCI](https://circleci.com/gh/DenisBiwott/PollsApp/tree/master.svg?style=svg)](https://circleci.com/gh/DenisBiwott/PollsApp/tree/master)
-
-
 Installation
 ------------
 
