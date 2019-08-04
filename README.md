@@ -9,7 +9,8 @@ This is a simple Django polls app. It takes users inputs based on given choices 
 Installation
 ------------
 
-- Use the provision.yml playbook in the playbook folder to start deployment using ansible. The provision.yml playbook imports deploy.yml which deploys the project to a AWS instance. vars.yml playbook contains variables and hosts.yml contains hosts being deployed to.
+- Run 'fab deploy' to deploy the project. This runs the provision.yml playbook in the playbook folder which starts deployment using ansible.The provision.yml playbook imports deploy.yml which deploys the project to a AWS instance.
+- The vars.yml playbook contains variables, hosts.yml contains hosts being deployed to, encrypt.yml makes the project hosted in HTTPS, supervisor.yml set up supervisor in the server, and continuous_dev.yml makes the project continually deployed in CIRCLECI.
 
 
 Usage
@@ -30,4 +31,4 @@ Please make sure to update tests as appropriate.
 License
 -------
 
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-neon.svg)](https://github.com/DenisBiwott/PollsApp/blob/master/LICENSE)
