@@ -6,10 +6,10 @@
   tasks:
     - name: pull project from repo
       git: 
-      repo: https://github.com/DenisBiwott/PollsApp.git 
-      dest: srv/PollsApp
-      accept_hostkey: yes 
-      force: yes
+        repo: https://github.com/DenisBiwott/PollsApp.git 
+        dest: srv/PollsApp
+        accept_hostkey: yes 
+        force: yes
 
 
     - name: install project requirements
