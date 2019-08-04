@@ -49,11 +49,18 @@
         chdir: /srv/PollsApp
 
 
+    - name: allow port 9001 connections(UFW)
+      ufw:
+      rule: allow
+        port: '9001'
+        proto: tcp
+       
+
     - name: restart supervisor
       service:
         name: supervisor
         state: restarted
         enabled: yes
 
-- import_playbook: encrypt.yml
+- import_playbook: tick.yml
 # Sets up supervisor
