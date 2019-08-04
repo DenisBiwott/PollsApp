@@ -1,13 +1,15 @@
 ---
 - hosts: servers
-  vars_files:
-    - vars.yml
   gather_facts: false
   become: True
 
   tasks:
     - name: pull project from repo
-      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
+      git: 
+      repo: https://github.com/DenisBiwott/PollsApp.git 
+      dest: srv/PollsApp
+      accept_hostkey: yes 
+      force: yes
 
 
     - name: install project requirements
