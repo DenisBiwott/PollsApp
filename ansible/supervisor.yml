@@ -13,14 +13,16 @@
 
     - name: copy supervisord conf file
       copy:
-        src: /home/denis/Desktop/django_denis/Django/PollsApp/files/supervisord.conf
+        src: /srv/PollsApp/files/supervisord.conf
         dest: /etc/supervisor
+        remote_src: yes
 
 
     - name: copy supervisor conf file    
       copy:
-        src: /home/denis/Desktop/django_denis/Django/PollsApp/files/mysite.conf
+        src: /srv/PollsApp/files/mysite.conf
         dest: /etc/supervisor/conf.d
+        remote_src: yes
 
 
     - name: make sure supervisor is running
