@@ -1,0 +1,127 @@
+---
+- hosts: servers
+  vars_files:
+    - vars.yml
+  gather_facts: false
+  become: True
+
+  tasks:
+
+# Prep
+      
+    - name: add tick key
+      apt_key:
+        url: https://repos.influxdata.com/influxdb.key
+        state: present
+
+
+    - name: add tick repository
+      apt_repository: 
+        repo: deb https://repos.influxdata.com/Ubuntu bionic stable
+        state: present 
+        update_cache: yes
+
+# Influx DB
+    
+    - name: install influxdb
+      apt:
+        name: influxdb
+        state: present
+
+
+    - name: make sure influxdb is running
+      service:
+        name: influxdb
+        state: started
+        enabled: yes
+
+
+    - name: create influxdb user
+      influxdb_user:
+        user_name: "{{ influxdb_user }}"
+        user_password: "{{ influxdb_password }}"
+        admin: yes
+
+
+        #    - name: Create database using custom credentials
+        #      influxdb_database:
+        #          hostname: "localhost"
+        #          username: "{{ influxdb_user }}"
+        #          password: "{{ influxdb_password }}"
+        #          database_name: "{{ influxdb_database_name }}"
+
+
+    - name: copy influxdb config
+      copy:
+        src: /etc/influxdb/influxdb.conf
+        dest: /etc/influxdb
+
+
+    - name: restart influxdb
+      service:
+        name: influxdb
+        state: restarted
+        enabled: yes
+
+# Telegraf
+
+    - name: install telegraf
+      apt:
+        name: telegraf
+        state: present
+
+
+    - name: copy telegraf config
+      copy:
+        src: /etc/telegraf/telegraf.conf
+        dest: /etc/telegraf
+        
+
+    - name: make sure telegraf is running
+      service:
+        name: telegraf
+        state: started
+        enabled: yes
+
+# Kapacitor
+
+    - name: install kapacitor
+      apt:
+        name: kapacitor
+        state: present
+
+
+    - name: copy kapacitor config
+      copy:
+        src: /etc/kapacitor/kapacitor.conf
+        dest: /etc/kapacitor
+
+
+    - name: make sure kapacitor is running
+      service:
+        name: kapacitor
+        state: started
+        enabled: yes
+
+# Chronograf        
+
+    - name: Install chronograf.
+      apt:
+        deb: https://dl.influxdata.com/chronograf/releases/chronograf_1.7.12_amd64.deb
+
+        
+    - name: Allow connections port 8888
+      ufw:
+        rule: allow
+        port: '8888'
+        proto: tcp
+
+
+    - name: Start chronograf service
+      service:
+        name: Chronograf
+        state: started
+        enabled: yes
+
+- import_playbook: encrypt.yml
+# Sets up TICK stack for monitoring
