@@ -6,11 +6,11 @@
   become: True
 
   tasks:
-    - name: Clone/pull project repo
+    - name: clone/pull project repo
       git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
 
 
-    - name: Install project requirements
+    - name: install project requirements
       pip:
         requirements: /srv/PollsApp/requirements.txt
 
@@ -22,7 +22,7 @@
         remote_src: yes
 
 
-    - name: Create symbolic link
+    - name: create symbolic link
       file:
         src: /etc/nginx/sites-available/mysite
         dest: /etc/nginx/sites-enabled/mysite
@@ -36,7 +36,7 @@
         enabled: yes
     
     
-    - name: Make migrations
+    - name: make migrations
       shell:
         python3 /srv/PollsApp/manage.py migrate
 
@@ -53,7 +53,8 @@
         name: nginx
         state: restarted
 
-- import_playbook: encrypt.yml
-# vim:ft=ansible:
+
+- import_playbook: supervisor.yml
+# Deploys the system to the server
 
 

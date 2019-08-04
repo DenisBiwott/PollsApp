@@ -6,35 +6,43 @@
   become: True
 
   tasks:
-    - name: Add repository for certbot
+    - name: add repository for certbot
       apt_repository: 
         repo: ppa:certbot/certbot
         state: present
         update_cache: yes
-    - name: Install certbot
+
+
+    - name: install certbot
       apt: 
         name: "{{ certbot }}"
 
-    - name: Restart nginx
+
+    - name: free nginx port
       service:
         name: nginx
         state: stopped
                     
-    - name: Enable UFW (Firewall)
+
+    - name: enable UFW (Firewall)
       ufw:
         state: enabled
 
-    - name: Allow OpenSSH
+
+    - name: allow OpenSSH
       ufw:
         rule: allow
         name: OpenSSH
 
-    - name: Allow Nginx Full
+
+    - name: allow Nginx Full
       ufw:
         rule: allow
         name: Nginx Full
   
-    - name: Obtain SSL certificate
+
+    - name: obtain SSL certificate
       shell: "certbot --nginx --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ domain_1 }} -d {{ domain_2 }}"
-      
       become: yes
+
+# Create secure HTTPS connection by obtaining SSL certificate

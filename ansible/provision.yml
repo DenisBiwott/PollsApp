@@ -6,13 +6,13 @@
   become: yes
 
   tasks:
-    - name: Install system packages
+    - name: install system packages
       apt: pkg={{ system_packages }} update-cache=yes # Removed Loop
 
-    - name: Save ssh key to server
+    - name: save ssh key to server
       copy: src={{ ssh_private_key }} dest=/root/.ssh/id_rsa mode=600
 
-    - name: Create directory for app
+    - name: create directory for app
       file: path={{ install_root }}/{{ project_name }} state=directory
 
     - name: make sure postgresql server is running
@@ -29,5 +29,6 @@
     - name: remove default nginx site
       file: path=/etc/nginx/sites-enabled/default state=absent
 
+
 - import_playbook: deploy.yml
-# vim:ft=ansible:
+# Prepares server for deployment

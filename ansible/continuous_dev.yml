@@ -6,22 +6,19 @@
   become: True
 
   tasks:
-    - name: Pull project repo
+    - name: pull project from repo
       git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
 
-    - name: Install project requirements
+
+    - name: install project requirements
       pip:
         requirements: /srv/PollsApp/requirements.txt
 
-    - name: Create symbolic link
-      file:
-        src: /etc/nginx/sites-available/mysite
-        dest: /etc/nginx/sites-enabled/mysite
-        state: link
 
-    - name: Make migrations
+    - name: make migrations
       shell:
         python3 /srv/PollsApp/manage.py migrate
+
 
     - name: start gunicorn
       become: True
@@ -29,3 +26,4 @@
       args:
         chdir: /srv/PollsApp
 
+# Enables continuous deployment

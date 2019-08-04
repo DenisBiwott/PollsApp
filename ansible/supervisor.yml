@@ -1,0 +1,57 @@
+---
+- hosts: servers
+  vars_files:
+    - vars.yml
+  gather_facts: false
+  become: True
+
+  tasks:
+
+    - name: remove default supervisord.conf file
+      file: path=/etc/supervisor/supervisord.conf state=absent
+
+
+    - name: copy supervisord conf file
+      copy:
+        src: /home/denis/Desktop/django_denis/Django/PollsApp/files/supervisord.conf
+        dest: /etc/supervisor
+
+
+    - name: copy supervisor conf file    
+      copy:
+        src: /home/denis/Desktop/django_denis/Django/PollsApp/files/mysite.conf
+        dest: /etc/supervisor/conf.d
+
+
+    - name: make sure supervisor is running
+      service:
+        name: supervisor
+        state: started
+        enabled: yes
+    
+    
+    - name: reread supervisor configurations
+      shell:
+        supervisorctl reread
+
+
+    - name: update supervisor configurations
+      shell:
+        supervisorctl update
+
+
+    - name: start gunicorn
+      become: True
+      command: gunicorn --daemon --workers 3 --bind unix:/srv/PollsApp/mysite.sock mysite.wsgi
+      args:
+        chdir: /srv/PollsApp
+
+
+    - name: restart supervisor
+      service:
+        name: supervisor
+        state: restarted
+        enabled: yes
+
+- import_playbook: encrypt.yml
+# Sets up supervisor
