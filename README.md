@@ -10,7 +10,7 @@ Installation
 ------------
 
 - Run 'fab deploy' to deploy the project. This runs the provision.yml playbook in the playbook folder which starts deployment using ansible.The provision.yml playbook imports deploy.yml which deploys the project to a AWS instance.
-- The vars.yml playbook contains variables, hosts.yml contains hosts being deployed to, encrypt.yml makes the project hosted in HTTPS, supervisor.yml set up supervisor in the server, and continuous_dev.yml makes the project continually deployed in CIRCLECI.
+- You will need to create a vars.yml playbook that contains variables (Not in repo for obvious security reasons), hosts.yml contains hosts being deployed to, encrypt.yml makes the project hosted in HTTPS, supervisor.yml set up supervisor in the server, and continuous_dev.yml makes the project continually deployed in CIRCLECI.
 
 
 Usage
