@@ -1,10 +1,9 @@
 version: 2
 jobs:
-  build:
 
+  start:
     working_directory: ~/circleci-demo-python-django
     docker:
-
       - image: circleci/python:3.6.8
         environment:
           PIPENV_VENV_IN_PROJECT: true
@@ -16,12 +15,7 @@ jobs:
           POSTGRES_USER: pollsapp
           POSTGRES_DB: pollsapp_db
 
-
     steps:
-      - add_ssh_keys:
-          fingerprints:
-              - "2a:6f:9a:73:ac:82:ae:19:5a:2c:9e:0d:9b:70:32:c8"
-
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
@@ -43,17 +37,17 @@ jobs:
             - "/usr/local/lib/python3.6/site-packages"
 
       - run:
-          name: Coverage
+          name: Coverage(Run tests)
           command: |
             coverage run manage.py test
-            coverage report --fail-under=90
+            coverage report --fail-under=100
       
-      - run:
-          name: Run Playbook
-          command: |
-           cd ansible
-           ansible-playbook continuous_dev.yml -i hosts
 
+  publish:
+    docker:
+      - image: circleci/python:3.6.8
+    steps:
+      - checkout
       - run:
           name: init .pypirc
           command: |
@@ -65,12 +59,37 @@ jobs:
           name: create packages
           command: |
             python3 setup.py sdist bdist_wheel
+      - run:
+          name: upload to pypi
+          command: "twine upload dist/*"
 
+  deploy:
+    docker:
+      - image: circleci/python:3.6.8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "da:25:63:85:c5:46:0e:79:46:15:b6:47:f7:0b:61:a4"
 
+      - run:
+          name: Run Playbook for continuous deployment
+          command: |
+           cd ansible
+           ansible-playbook continuous_dev.yml -i hosts
 workflows:
   version: 2
-  test-and-approval-publish-and-approval-deploy:
+  build:
     jobs:
+      - start:
+      - publish:
+          requires:
+            - start
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - start
           filters:
             branches:
               only: master
