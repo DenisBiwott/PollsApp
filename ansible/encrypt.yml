@@ -45,4 +45,5 @@
       shell: "certbot --nginx --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ domain_1 }} -d {{ domain_2 }}"
       become: yes
 
+- import_playbook: tick.yml
 # Create secure HTTPS connection by obtaining SSL certificate

@@ -51,7 +51,7 @@
 
     - name: allow port 9001 connections(UFW)
       ufw:
-      rule: allow
+        rule: allow
         port: '9001'
         proto: tcp
        
@@ -62,5 +62,5 @@
         state: restarted
         enabled: yes
 
-- import_playbook: tick.yml
+- import_playbook: encrypt.yml
 # Sets up supervisor

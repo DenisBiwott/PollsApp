@@ -17,7 +17,7 @@
 
     - name: add tick repository
       apt_repository: 
-        repo: deb https://repos.influxdata.com/Ubuntu bionic stable
+        repo: deb https://repos.influxdata.com/ubuntu bionic stable
         state: present 
         update_cache: yes
 
@@ -35,6 +35,10 @@
         state: started
         enabled: yes
 
+    - name: Install influxdb python module
+      pip:
+        name: influxdb
+        executable: pip3
 
     - name: create influxdb user
       influxdb_user:
@@ -123,5 +127,4 @@
         state: started
         enabled: yes
 
-- import_playbook: encrypt.yml
 # Sets up TICK stack for monitoring
