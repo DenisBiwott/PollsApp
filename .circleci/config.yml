@@ -69,10 +69,10 @@ jobs:
 
 workflows:
   version: 2
-  test-and-approval-publish-and-approval-deploy:
+  build:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: master
+    - build:
+        filters:
+          branches:
+            only: master
 
