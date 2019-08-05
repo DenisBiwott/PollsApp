@@ -40,7 +40,7 @@ jobs:
           name: Coverage(Run tests)
           command: |
             coverage run manage.py test
-            coverage report --fail-under=100
+            coverage report --fail-under=94
       
 
   publish:
@@ -48,6 +48,12 @@ jobs:
       - image: circleci/python:3.6.8
     steps:
       - checkout
+      - run:
+          name: Installing Requirements
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            sudo pip3 install -r requirements.txt
       - run:
           name: init .pypirc
           command: |
@@ -70,7 +76,12 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "da:25:63:85:c5:46:0e:79:46:15:b6:47:f7:0b:61:a4"
-
+      - checkout
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip3 install ansible
       - run:
           name: Run Playbook for continuous deployment
           command: |
@@ -81,7 +92,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - start:
+      - start
       - publish:
           requires:
             - start
