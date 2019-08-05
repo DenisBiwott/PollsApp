@@ -16,9 +16,6 @@ jobs:
           POSTGRES_USER: pollsapp
           POSTGRES_DB: pollsapp_db
 
-    branches:
-      only:
-        - master
 
     steps:
       - add_ssh_keys:
@@ -69,15 +66,12 @@ jobs:
           command: |
             python3 setup.py sdist bdist_wheel
 
-      - run:
-          name: upload to pypi
-          command: |
-            twine upload dist/*       
 
-      - store_test_results:
-          path: test-results
-
-      - store_artifacts:
-          path: test-results
-          destination: tr1
+workflows:
+  version: 2
+  test-and-approval-publish-and-approval-deploy:
+    jobs:
+          filters:
+            branches:
+              only: master
 
