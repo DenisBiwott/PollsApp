@@ -71,6 +71,7 @@ workflows:
   version: 2
   test-and-approval-publish-and-approval-deploy:
     jobs:
+      - steps:
           filters:
             branches:
               only: master
