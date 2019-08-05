@@ -22,7 +22,6 @@ from django.conf.urls import url
 
 urlpatterns = [
     url(r'^', include('polls.urls')),
-    url(r'^polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('', include('django_prometheus.urls')),
 #    path('sentry-debug/', trigger_error),

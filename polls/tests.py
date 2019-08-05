@@ -1,10 +1,12 @@
 import datetime
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.utils import timezone
 from .models import Question, Choice
 from django.urls import reverse
 from django.contrib.auth.models import UserManager
 from model_mommy import mommy
+from .views import vote
+
 
 class QuestionModelTests(TestCase):
 
@@ -147,3 +149,12 @@ class ChoiceTest(TestCase):
         self.assertTrue(isinstance(c, Choice))
         self.assertEqual(c.__str__(), c.choice_text)
 
+    def test_vote(self):
+        self.factory = RequestFactory()
+        self.vote = create_question(question_text="Kipkoech is awesome", days=1)
+
+        request = self.factory.get('<int:question_id>/vote/')
+        request.vote = self.vote
+        response = vote(request, question_id=3)
+        self.assertEqual(response.status_code, 302)
+        

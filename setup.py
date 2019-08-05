@@ -4,7 +4,7 @@
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.2.1"
+VERSION = "0.2.4"
 
 
 def readme():
