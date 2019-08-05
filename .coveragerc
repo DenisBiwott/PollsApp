@@ -7,7 +7,7 @@ omit =
     settings.py
     fabfile.py
     setup.py
-    polls/urls.py
+    mysite/urls.py
 [run]
 source=.
 branch=True
