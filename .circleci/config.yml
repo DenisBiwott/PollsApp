@@ -70,7 +70,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - da:25:63:85:c5:46:0e:79:46:15:b6:47:f7:0b:61:a4
+            - "da:25:63:85:c5:46:0e:79:46:15:b6:47:f7:0b:61:a4"
 
       - run:
           name: Run Playbook for continuous deployment
