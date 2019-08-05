@@ -40,7 +40,7 @@ jobs:
           name: Coverage(Run tests)
           command: |
             coverage run manage.py test
-            coverage report --fail-under=100
+            coverage report --fail-under=94
       
 
   publish:
