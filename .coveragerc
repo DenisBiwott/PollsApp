@@ -7,7 +7,6 @@ omit =
     settings.py
     fabfile.py
     setup.py
-    polls/views.py
 [run]
 source=.
 branch=True
