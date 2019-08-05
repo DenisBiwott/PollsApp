@@ -12,11 +12,6 @@
         force: yes
 
 
-    - name: install project requirements
-      pip:
-        requirements: /srv/PollsApp/requirements.txt
-
-
     - name: make migrations
       shell:
         python3 /srv/PollsApp/manage.py migrate
