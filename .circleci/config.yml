@@ -38,8 +38,7 @@ jobs:
       - run:
           name: Coverage(Run tests)
           command: |
-            coverage run manage.py test
-            coverage report --fail-under=94
+            tox  
       
 
   publish:
