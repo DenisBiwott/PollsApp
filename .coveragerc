@@ -7,6 +7,7 @@ omit =
     settings.py
     fabfile.py
     setup.py
+    *.tox/*
 [run]
 source=.
 branch=True
