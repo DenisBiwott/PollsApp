@@ -63,9 +63,9 @@ jobs:
           name: create packages
           command: |
             python3 setup.py sdist bdist_wheel
-      - run:
-          name: upload to pypi
-          command: "twine upload dist/*"
+            #      - run:
+            #          name: upload to pypi
+            #          command: "twine upload dist/*"
 
   deploy:
     docker:
