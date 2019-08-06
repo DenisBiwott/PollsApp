@@ -4,7 +4,7 @@
   become: True
 
   tasks:
-    - name: pull project from repo
+    - name: continuous deploy
       git: 
         repo: https://github.com/DenisBiwott/PollsApp.git 
         dest: srv/PollsApp
